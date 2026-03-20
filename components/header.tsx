@@ -11,6 +11,7 @@ const navLinks = [
   { href: "#gallery", label: "Автопарк" },
   { href: "#services", label: "Услуги" },
   { href: "#partners", label: "Партнеры" },
+  { href: "#news", label: "Новости" },
   { href: "#contact", label: "Контакты" },
 ]
 

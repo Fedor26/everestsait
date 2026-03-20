@@ -7,6 +7,7 @@ const navLinks = [
   { href: "#gallery", label: "Автопарк" },
   { href: "#services", label: "Услуги" },
   { href: "#partners", label: "Партнеры" },
+  { href: "#news", label: "Новости" },
   { href: "#contact", label: "Контакты" },
 ]
 
@@ -74,10 +75,16 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border pt-6 text-center">
+        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
             {new Date().getFullYear()} ЭВЕРЕСТ. Все права защищены.
           </p>
+          <Link
+            href="/admin/news"
+            className="text-xs text-muted-foreground hover:text-primary transition-colors"
+          >
+            Управление новостями
+          </Link>
         </div>
       </div>
     </footer>

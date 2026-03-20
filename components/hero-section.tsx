@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
@@ -12,10 +12,19 @@ const HERO_TEXT = {
   servicesBtn: "Наши услуги"
 }
 
-export function HeroSection() {
+interface HeroSectionProps {
+  videoUrl?: string
+  useParticles?: boolean
+}
+
+export function HeroSection({ videoUrl, useParticles = true }: HeroSectionProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoReady, setVideoReady] = useState(false)
 
   useEffect(() => {
+    if (!useParticles) return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -137,10 +146,31 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-      />
+      {/* Video Background */}
+      {videoUrl && (
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          onLoadedData={() => setVideoReady(true)}
+        >
+          <source src={videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      )}
+
+      {/* Particle Canvas (when no video or video not loaded) */}
+      {useParticles && !videoUrl && (
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full"
+        />
+      )}
+
+      {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background/80" />
       
       <div className="container mx-auto px-4 relative z-10">

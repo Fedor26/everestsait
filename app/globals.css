@@ -7,7 +7,7 @@
   --font-sans: 'Inter', 'Inter Fallback', sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
 
-  /* Dark navy palette */
+  /* Dark navy + orange brand palette */
   --color-background:          #090e1a;
   --color-foreground:          #f1f5f9;
   --color-card:                #0f1829;
@@ -61,6 +61,7 @@
   }
 }
 
+/* Partners infinite scroll animation */
 @keyframes scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -73,7 +74,13 @@
   animation-play-state: paused;
 }
 
-/* Hide scrollbar everywhere */
+/* Gallery mobile touch scroll */
+.gallery-scroll {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+/* Hide scrollbar globally */
 * {
   scrollbar-width: none;
   -ms-overflow-style: none;

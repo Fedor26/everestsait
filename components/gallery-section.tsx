@@ -45,37 +45,38 @@ export function GallerySection() {
         {/* Desktop Grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {galleryImages.map((image, index) => (
-            <button
+            <div
               key={index}
-              onClick={() => openLightbox(index)}
-              className="relative aspect-[4/3] rounded-lg overflow-hidden group cursor-pointer"
+              className="relative aspect-video rounded-lg overflow-hidden"
             >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                loading={index === 0 ? "eager" : "lazy"}
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors" />
-            </button>
+              <button
+                onClick={() => openLightbox(index)}
+                className="absolute inset-0 w-full h-full group cursor-pointer"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  loading={index === 0 ? "eager" : "lazy"}
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-colors" />
+              </button>
+            </div>
           ))}
         </div>
 
         {/* Mobile Horizontal Scroll */}
-        <div 
+        <div
           className="gallery-scroll md:hidden flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory"
-          style={{ 
-            scrollbarWidth: 'none', 
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch'
-          }}
+          style={{ touchAction: 'pan-x' }}
         >
           {galleryImages.map((image, index) => (
             <button
               key={index}
               onClick={() => openLightbox(index)}
-              className="relative flex-none w-[280px] aspect-[4/3] rounded-lg overflow-hidden snap-start"
+              className="relative flex-none w-[280px] h-[158px] rounded-lg overflow-hidden snap-start shrink-0"
+              style={{ touchAction: 'pan-x' }}
             >
               <Image
                 src={image.src}
