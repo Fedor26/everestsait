@@ -61,16 +61,21 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Phone className="h-4 w-4 text-primary" />
-                <span>+7 (XXX) XXX-XX-XX</span>
+                <span>8(8652) 90-61-48</span>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <Mail className="h-4 w-4 text-primary" />
-                <span>info@everest-trucks.ru</span>
+                <span>Everest-26@mail.ru</span>
               </li>
               <li className="flex items-center gap-2 text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary" />
-                <span>г. Москва</span>
+                <span>Юридический адрес 115201, г. Москва, вн.тер.г. муниципальный округ Москворечье-Сабурово, ул. Котляковская, д. 9, стр. 3</span>
               </li>
+              <li className="flex items-center gap-2 text-muted-foreground">
+                <MapPin className="h-4 w-4 text-primary" />
+                <span>Почтовый адрес/обособленное подразделение в г.Ставрополе 355002, г. Ставрополь ул. Пушкина 69, этаж 3,оф.304</span>
+              </li>
+              
             </ul>
           </div>
         </div>
@@ -79,12 +84,7 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             {new Date().getFullYear()} ЭВЕРЕСТ. Все права защищены.
           </p>
-          <Link
-            href="/admin/news"
-            className="text-xs text-muted-foreground hover:text-primary transition-colors"
-          >
-            Управление новостями
-          </Link>
+          
         </div>
       </div>
     </footer>

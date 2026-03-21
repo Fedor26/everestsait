@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 const HERO_TEXT = {
   title: "ЭВЕРЕСТ",
-  subtitle: "- Надежные грузовые перевозки",
+  subtitle: "- Надежный федеральный автоперевозчик",
   description: "\u041c\u044b \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u043c \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0435 \u0443\u0441\u043b\u0443\u0433\u0438 \u0433\u0440\u0443\u0437\u043e\u043f\u0435\u0440\u0435\u0432\u043e\u0437\u043e\u043a \u043f\u043e \u0432\u0441\u0435\u0439 \u0420\u043e\u0441\u0441\u0438\u0438. \u041d\u0430\u0448 \u0430\u0432\u0442\u043e\u043f\u0430\u0440\u043a \u0438 \u043f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0430\u0442 \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u0443\u044e \u0438 \u0441\u0432\u043e\u0435\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u0443\u044e \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0443 \u0432\u0430\u0448\u0435\u0433\u043e \u0433\u0440\u0443\u0437\u0430.",
   contactBtn: "Связаться с нами",
   servicesBtn: "Наши услуги"
@@ -17,7 +17,7 @@ interface HeroSectionProps {
   useParticles?: boolean
 }
 
-export function HeroSection({ videoUrl, useParticles = true }: HeroSectionProps = {}) {
+export function HeroSection({ videoUrl="public/video.mp4", useParticles = false }: HeroSectionProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [videoReady, setVideoReady] = useState(false)

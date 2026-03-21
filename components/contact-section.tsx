@@ -5,17 +5,22 @@ const contactInfo = [
   {
     icon: Phone,
     label: "Телефон",
-    lines: ["+7 (495) 123-45-67", "Доступен 24/7"],
+    lines: ["8(8652) 90-61-48"],
   },
   {
     icon: Mail,
     label: "Email",
-    lines: ["zakaz@everest-trucks.ru", "info@everest-trucks.ru"],
+    lines: ["Everest-26@mail.ru"],
   },
   {
     icon: MapPin,
-    label: "Адрес офиса",
-    lines: ["г. Москва, ул. Логистическая, д. 42, офис 301", "Пн-Пт: 8:00 - 20:00"],
+    label: "Юридический адрес",
+    lines: ["115201, г. Москва, вн.тер.г. муниципальный округ Москворечье-Сабурово, ул. Котляковская, д. 9, стр. 3"],
+  },
+   {
+    icon: MapPin,
+    label: "Почтовый адрес/обособленное подразделение в г.Ставрополе",
+    lines: ["355002, г. Ставрополь ул. Пушкина 69, этаж 3,оф.304"],
   },
 ]
 
@@ -51,14 +56,18 @@ export function ContactSection() {
             ))}
           </div>
 
-          {/* Map placeholder */}
-          <div className="rounded-lg overflow-hidden h-[300px] bg-muted flex items-center justify-center">
-            <div className="text-center text-muted-foreground">
-              <MapPin className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>Карта загрузится здесь</p>
-              <p className="text-sm mt-1">г. Москва, ул. Примерная, д. 123</p>
-            </div>
-          </div>
+<div className="rounded-lg overflow-hidden h-[400px] md:h-[500px] w-full relative">
+  <iframe
+    src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac48686c712b7b00492876df11c7b4b0a27ebc9c3c6f196d2ee293ef746114ac0&source=constructor"
+    width="100%"
+    height="100%"
+    style={{ border: 0 }}
+    allowFullScreen
+    loading="lazy"
+  />
+  {/* Лёгкое затемнение для лучшей сочетаемости с тёмной темой сайта */}
+  <div className="absolute inset-0 bg-black/20 pointer-events-none" />
+</div>
         </Card>
       </div>
     </section>
