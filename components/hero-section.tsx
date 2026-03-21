@@ -1,3 +1,4 @@
+// components/hero-section.tsx
 "use client"
 
 import { useEffect, useRef, useState } from "react"
@@ -6,24 +7,33 @@ import { Button } from "@/components/ui/button"
 
 const HERO_TEXT = {
   title: "ЭВЕРЕСТ",
-  subtitle: "- Надежные грузовые перевозки",
-  description: "\u041c\u044b \u043f\u0440\u0435\u0434\u043e\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u043c \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0435 \u0443\u0441\u043b\u0443\u0433\u0438 \u0433\u0440\u0443\u0437\u043e\u043f\u0435\u0440\u0435\u0432\u043e\u0437\u043e\u043a \u043f\u043e \u0432\u0441\u0435\u0439 \u0420\u043e\u0441\u0441\u0438\u0438. \u041d\u0430\u0448 \u0430\u0432\u0442\u043e\u043f\u0430\u0440\u043a \u0438 \u043f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430 \u043e\u0431\u0435\u0441\u043f\u0435\u0447\u0430\u0442 \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u0443\u044e \u0438 \u0441\u0432\u043e\u0435\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u0443\u044e \u0434\u043e\u0441\u0442\u0430\u0432\u043a\u0443 \u0432\u0430\u0448\u0435\u0433\u043e \u0433\u0440\u0443\u0437\u0430.",
+  subtitle: "— Надежные грузовые перевозки",
+  description:
+    "Мы предоставляем качественные услуги грузоперевозок по всей России. Наш автопарк и профессиональная команда обеспечат безопасную и своевременную доставку вашего груза.",
   contactBtn: "Связаться с нами",
-  servicesBtn: "Наши услуги"
+  servicesBtn: "Наши услуги",
 }
 
 interface HeroSectionProps {
-  videoUrl?: string
-  useParticles?: boolean
-}
-
-export function HeroSection({ videoUrl, useParticles = true }: HeroSectionProps = {}) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  videoUrl?: string          // например: "/videos/hero-trucks.mp4"
+  fallbackImage?: string     // опционально — картинка, если видео не загрузилось
+  useParticlesAsFallback?: boolean
+export function HeroSection({
+  videoUrl,
+  fallbackImage = "/images/hero-fallback.jpg",
+  useParticlesAsFallback = true,
+}: HeroSectionProps = {}) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [videoError, setVideoError] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
 
+  // Если видео не загрузилось → показываем либо частицы, либо статичную картинку
+  const showParticles = !videoUrl || videoError || !videoReady
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  // Particles (оставляем как запасной вариант)
   useEffect(() => {
-    if (!useParticles) return
+    if (!useParticlesAsFallback || !showParticles) return
 
     const canvas = canvasRef.current
     if (!canvas) return
@@ -145,9 +155,9 @@ export function HeroSection({ videoUrl, useParticles = true }: HeroSectionProps 
   }, [])
 
   return (
-    <section className="relative min-h-[80vh] flex items-center overflow-hidden">
-      {/* Video Background */}
-      {videoUrl && (
+    <section className="relative min-h-[80vh] md:min-h-[90vh] flex items-center overflow-hidden">
+      {/* 1. Видео-фон */}
+      {videoUrl && !videoError && (
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
@@ -155,30 +165,43 @@ export function HeroSection({ videoUrl, useParticles = true }: HeroSectionProps 
           loop
           muted
           playsInline
+          preload="auto"           // или "metadata" если хотите экономить трафик
           onLoadedData={() => setVideoReady(true)}
+          onError={() => setVideoError(true)}
         >
           <source src={videoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
+          {/* Можно добавить webm как запасной вариант */}
+          {/* <source src={videoUrl.replace(".mp4", ".webm")} type="video/webm" /> */}
+          Ваш браузер не поддерживает видео.
         </video>
       )}
 
-      {/* Particle Canvas (when no video or video not loaded) */}
-      {useParticles && !videoUrl && (
+      {/* 2. Запасная картинка (если видео не загрузилось) */}
+      {(videoError || !videoUrl) && !useParticlesAsFallback && (
+        <div
+          className="absolute inset-0 w-full h-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${fallbackImage})` }}
+        />
+      )}
+
+      {/* 3. Частицы — только если явно попросили и видео не работает */}
+      {showParticles && useParticlesAsFallback && (
         <canvas
           ref={canvasRef}
           className="absolute inset-0 w-full h-full"
         />
       )}
 
-      {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background/80" />
-      
+      {/* Затемняющий оверлей — очень важен для читаемости текста */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
+
+      {/* Контент */}
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center py-12">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-balance">
+        <div className="max-w-3xl mx-auto text-center py-12 md:py-16">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
             <span className="text-primary">{HERO_TEXT.title}</span> {HERO_TEXT.subtitle}
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed text-pretty" suppressHydrationWarning>
+          <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             {HERO_TEXT.description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

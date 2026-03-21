@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <HeroSection />
+        <HeroSection videoUrl="/videos/hero-trucks.mp4" />
         <AboutSection />
         <GallerySection />
         <ServicesSection />
