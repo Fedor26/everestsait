@@ -18,18 +18,15 @@ interface HeroSectionProps {
   useParticles?: boolean
 }
 
-export function HeroSection({ videoUrl="public/video.mp4", useParticles = false }: HeroSectionProps = {}) {
+export function HeroSection({ videoUrl="public/video.mp4", useParticles = false }: HeroSectionProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  videoUrl?: string          // например: "/videos/hero-trucks.mp4"
-  fallbackImage?: string     // опционально — картинка, если видео не загрузилось
-  useParticlesAsFallback?: boolean
   const videoRef = useRef<HTMLVideoElement>(null)
   const [videoError, setVideoError] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
 
   // Если видео не загрузилось → показываем либо частицы, либо статичную картинку
   const showParticles = !videoUrl || videoError || !videoReady
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const useParticlesAsFallback = useParticles
 
   // Particles (оставляем как запасной вариант)
   useEffect(() => {

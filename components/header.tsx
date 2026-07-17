@@ -13,6 +13,7 @@ const navLinks = [
   { href: "#services", label: "Услуги" },
   { href: "#partners", label: "Партнеры" },
   { href: "#news", label: "Новости" },
+  { href: "/parts", label: "Автозапчасти" },
   { href: "#contact", label: "Контакты" },
 ]
 
@@ -25,11 +26,11 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
          <Link href="/" className="flex items-center gap-2.5 md:gap-3">
   <Image
-    src="/images/logo-everest.png"          // ← твой путь к файлу
+    src="app\logo.png"          
     alt="Эверест — транспортная компания"
-    width={180}                             // базовый размер для расчёта пропорций
-    height={54}                             // подбери под свой логотип
-    className="h-8 w-auto md:h-11 lg:h-12"  // ← здесь магия
+    width={180}                             
+    height={54}                             
+    className="h-8 w-auto md:h-11 lg:h-12"  
     priority
   />
   <span className="text-xl font-bold text-primary md:text-2xl lg:text-2.5xl">
